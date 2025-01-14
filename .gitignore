@@ -20,3 +20,5 @@ build/
 .vscode/
 .idea/
 *.swp
+
+src/CSVfileData/universities_data.CSVfileData
