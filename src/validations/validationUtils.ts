@@ -21,11 +21,13 @@ interface FormattedUniversity {
         ) {
           throw new Error(`Invalid data format at index ${index}`);
         }
+
+        const webPages = university.web_pages.join(',');
   
         // Construct the valid university object with required fields
         const formattedUniversity: FormattedUniversity = {
           name: university.name,
-          webPages: university.web_pages,
+          webPages:webPages,
           alphaTwoCode: university.alpha_two_code,
           country: university.country,
         };
