@@ -21,3 +21,6 @@ This endpoint fetches university data from the external API, validates the data 
 
 GET /api/download-csv
 This endpoint allows users to download the stored CSV file containing the university data.
+
+The cron is set up to refresh data every midnight and the same function is also provided in the POST API above
+
