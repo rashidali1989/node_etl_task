@@ -7,14 +7,6 @@ import { validateApiResponse } from '../validations/validationUtils';
 const CSV_DIR = path.join(__dirname, '..', 'CSVfileData');
 
 
-const getUniqueFileName = (basePath: string): string => {
-    if (existsSync(basePath)) {
-      return basePath;
-    }
-  
-    return basePath;
-  };
-
 export const fetchDataAndStoreCSV = async (): Promise<string> => {
   try {
     const response = await axios.get('http://universities.hipolabs.com/search?country=United+States');
@@ -27,9 +19,7 @@ export const fetchDataAndStoreCSV = async (): Promise<string> => {
 
     const csvData = parse(validatedData);
 
-    const baseFilePath = path.join(CSV_DIR, 'universities_data.csv');
-
-    const filePath = getUniqueFileName(baseFilePath);
+    const filePath = path.join(CSV_DIR, 'universities_data.csv');
 
     writeFileSync(filePath, csvData);
 
