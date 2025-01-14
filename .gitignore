@@ -21,4 +21,4 @@ build/
 .idea/
 *.swp
 
-src/CSVfileData/universities_data.CSVfileData
+src/CSVfileData/universities_data.csv
