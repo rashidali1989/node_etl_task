@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import path from 'path';
 import { fetchDataAndStoreCSV } from '../services/universitiesService';
 import fs from 'fs';
+import cron from 'node-cron';
+
 
 const router = express.Router();
 
@@ -33,6 +35,17 @@ router.get('/download-csv', (req: Request, res: Response) => {
       res.status(500).send('Error downloading file');
     }
   });
+});
+
+
+cron.schedule('0 0 * * *', async () => {
+  try {
+    console.log('Running scheduled task: Fetching and saving universities data...');
+    await fetchDataAndStoreCSV();
+    console.log('Scheduled task completed successfully.');
+  } catch (error) {
+    console.error('Error in scheduled task:', error);
+  }
 });
 
 export default router;
