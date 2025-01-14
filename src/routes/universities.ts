@@ -5,7 +5,6 @@ import fs from 'fs';
 import cron from 'node-cron';
 import { validateApiResponse } from '../validations/validationUtils';
 import axios from 'axios';
-import { saveUniversityDataToDatabase } from '../services/dbSaving';
 
 
 
@@ -44,29 +43,9 @@ router.get('/download-csv', (req: Request, res: Response) => {
 
 
 
-router.post('/save-universities-to-db', async (req, res) => {
-  try {
-    const response = await axios.get('http://universities.hipolabs.com/search?country=United+States');
-    const universitiesData = validateApiResponse(response?.data);
-    if (universitiesData instanceof Error) throw universitiesData;
-
-    await saveUniversityDataToDatabase(universitiesData);
-
-    res.json({ message: 'Universities data successfully saved to the database.' });
-  } catch (error) {
-    console.error('Error saving universities to the database:', error);
-    res.status(500).json({ message: 'Error saving universities to the database.' });
-  }
-});
 
 
-
-
-
-
-
-
-//--cron --//
+//--cron to fetch and save csv --//
 
 
 cron.schedule('0 0 * * *', async () => {
