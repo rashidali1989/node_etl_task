@@ -1,0 +1,22 @@
+# Ignore Node.js dependencies
+node_modules/
+
+# Ignore environment variable files
+.env
+
+# Ignore logs
+*.log
+logs/
+
+# Ignore operating system files
+.DS_Store  # macOS
+Thumbs.db  # Windows
+
+# Ignore build artifacts
+dist/
+build/
+
+# Ignore IDE/editor settings
+.vscode/
+.idea/
+*.swp
