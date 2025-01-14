@@ -5,7 +5,7 @@ import { fetchDataAndStoreCSV } from '../services/universitiesService';
 const router = express.Router();
 
 // Route to fetch and store universities data in CSV format
-router.get('/fetch-universities', async (req, res) => {
+router.post('/fetch-save-universities', async (req, res) => {
   try {
     const filePath = await fetchDataAndStoreCSV(); 
     
