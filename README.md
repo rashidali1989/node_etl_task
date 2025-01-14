@@ -1,5 +1,9 @@
 # node_etl_task
 
+clone command
+git clone https://github.com/rashidali1989/node_etl_task.git
+
+
 Install dependencies:
 npm install
 
