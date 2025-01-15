@@ -5,6 +5,7 @@ import fs from 'fs';
 import cron from 'node-cron';
 import { validateApiResponse } from '../validations/validationUtils';
 import axios from 'axios';
+import { fetchData, saveDataToDatabase } from '../services/dbSaving';
 
 
 
@@ -57,5 +58,38 @@ cron.schedule('0 0 * * *', async () => {
     console.error('Error in scheduled task:', error);
   }
 });
+
+
+//cron for db insertion and updations
+
+
+cron.schedule('* * * * *', async () => {
+  console.log("Running database cron job...");
+
+  try {
+    let dataFetched = true;
+
+    while (dataFetched) {
+      const universitiesData = await fetchData();
+
+      // If no valid data is fetched, stop the loop
+      if (!universitiesData) {
+        console.error("No valid data fetched. Stopping the cron job.");
+        break;
+      }
+
+      if (universitiesData.length > 0) {
+        // Save the fetched data to the database
+        await saveDataToDatabase(universitiesData);
+      } else {
+        console.log("No more data to fetch. Stopping the cron job.");
+        dataFetched = false; // End the loop
+      }
+    }
+  } catch (error) {
+    console.error("Error running cron job:", error);
+  }
+});
+
 
 export default router;

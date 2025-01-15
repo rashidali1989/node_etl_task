@@ -1,4 +1,4 @@
-CREATE TABLE universities (
+CREATE TABLE university_data(
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     country VARCHAR(255) NOT NULL,
@@ -7,3 +7,13 @@ CREATE TABLE universities (
     web_pages TEXT, 
     UNIQUE (name, country)
 );
+
+CREATE TABLE web_pages (
+    id SERIAL PRIMARY KEY,
+    university_id INT NOT NULL,
+    web_page VARCHAR(255) NOT NULL,
+    FOREIGN KEY (university_id) REFERENCES university_data(id) ON DELETE CASCADE
+);
+
+ALTER TABLE web_pages
+ADD CONSTRAINT unique_university_webpage UNIQUE (university_id, web_page);
